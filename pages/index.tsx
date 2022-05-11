@@ -1,19 +1,7 @@
 import { GetServerSideProps } from "next";
 import { useEffect, useState } from "react"
 
-export default function Home({repos}) {
-  const [repositories, setRepositories]= useState<string[]>([])
-
-  useEffect(() => {
-    fetch('https://api.github.com/users/JoaoVitorLima242/repos')
-      .then((response) => response.json())
-      .then((data) => {
-        const repoNames = data?.map(item => item.name); 
-
-        setRepositories(repoNames);
-      });
-  }, [])
-
+export default function Home({repositories}) {
   return (
     <div>
       <ul>
@@ -25,3 +13,13 @@ export default function Home({repos}) {
   )
 }
 
+export const getServerSideProps :GetServerSideProps = async () => {
+  const data = await(await fetch('https://api.github.com/users/JoaoVitorLima242/repos')).json();
+  const repoNames = data?.map(item => item.name); 
+
+  return {
+    props :{
+      repositories: repoNames
+    }
+  }
+};
