@@ -1,4 +1,4 @@
-import { GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 
 export default function BlogPost({ date }) {
   return (
@@ -7,6 +7,14 @@ export default function BlogPost({ date }) {
       <h4>{date}</h4>
     </div>
   )
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+
+    return {
+        paths: [],
+        fallback: false,
+    }
 }
 
 export const getStaticProps :GetStaticProps = async () => {
