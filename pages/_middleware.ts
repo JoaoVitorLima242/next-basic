@@ -1,6 +1,7 @@
-import { NextFetchEvent, NextRequest } from "next/server";
+import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 
 export function middleware(req: NextRequest, ev: NextFetchEvent) {
-
-    return new Response('Hello World')
-}
+    const { pathname, origin } = req.nextUrl
+  
+    return NextResponse.rewrite(`${origin}/`)
+  }
